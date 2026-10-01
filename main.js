@@ -2,10 +2,10 @@
 const CONFIG={phone:'+918676691024',whatsapp:'918678870912',email:'ssenterprises.odisha@gmail.com',
  formEndpoint:'', // paste your Google Apps Script Web App URL (ends in /exec). Empty = WhatsApp fallback
  locations:{ // x,y = marker position on the illustrative map; map = Google Maps link
-  Bhubaneswar:{x:290,y:160,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Bhubaneswar'},
-  Berhampur:{x:225,y:226,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Berhampur'},
-  Paralakhemundi:{x:186,y:261,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Paralakhemundi'},
-  Balangir:{x:143,y:133,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Balangir'}},
+  Bhubaneswar:{x:287,y:160,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Bhubaneswar'},
+  Berhampur:{x:222,y:226,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Berhampur'},
+  Paralakhemundi:{x:184,y:261,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Paralakhemundi'},
+  Balangir:{x:140,y:133,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Balangir'}},
  sales:{Home:'',Office:'',Shop:'',Showroom:'',Commercial:''}}; // add your own informational copy per space
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 $$('[data-call]').forEach(a=>a.href='tel:'+CONFIG.phone);

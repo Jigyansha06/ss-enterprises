@@ -147,124 +147,30 @@ html.ld-lock{overflow:hidden}
 @media(max-width:700px){.pin text{font-size:14px;stroke-width:4px}.m-sea{font-size:11px}}
 @media(max-width:700px){.m-sea{display:none}}
 
+/* logo */
+.logo{display:inline-flex;align-items:center;gap:.55rem}
+.logo img{height:40px;width:auto;display:block;transition:height .4s var(--ease)}.nav.sc .logo img{height:34px}
+.logo .logo-t{font-weight:800;letter-spacing:.14em;font-size:.92rem;color:var(--ink)}
+.ld-logo-img{width:min(340px,72vw);height:auto;opacity:0;transform:translateY(14px) scale(.96);animation:ldIn .9s .1s var(--ease) forwards}
+.foot-logo{display:inline-block;justify-self:start;background:#fff;border-radius:18px;padding:.7rem 1.1rem;box-shadow:0 10px 24px #0003}
+.foot-logo img{display:block;width:200px;max-width:60vw;height:auto}
+@media(max-width:380px){.logo .logo-t{font-size:.78rem;letter-spacing:.1em}.logo img{height:34px}}
+
 /* ===== SHOWROOMS ===== */
-.showrooms{
-  background:var(--off);
-  overflow:hidden;
-}
-
-.showroom-head{
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  align-items:end;
-  gap:3rem;
-  margin-bottom:3rem;
-}
-
-.showroom-label{
-  color:var(--r);
-  font-size:.75rem;
-  font-weight:800;
-  letter-spacing:.16em;
-  margin-bottom:.8rem;
-}
-
-.showroom-head h2{
-  margin:0;
-}
-
-.showroom-head .lead{
-  margin:0;
-}
-
-.showroom-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1.2rem;
-}
-
-.showroom-card{
-  background:#fff;
-  border:1px solid #eadfd5;
-  border-radius:24px;
-  overflow:hidden;
-  box-shadow:0 12px 30px #0000000c;
-  transition:transform .45s var(--ease),box-shadow .45s var(--ease);
-}
-
-.showroom-card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 25px 50px #b5121b22;
-}
-
-.showroom-img{
-  position:relative;
-  aspect-ratio:4/3;
-  overflow:hidden;
-  background:#eee5dc;
-}
-
-.showroom-img::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(135deg,#ffffff00,#d7192018);
-  pointer-events:none;
-}
-
-.showroom-img img{
-  width:100%;
-  height:100%;
-  display:block;
-  object-fit:cover;
-  transition:transform .7s var(--ease);
-}
-
-.showroom-card:hover .showroom-img img{
-  transform:scale(1.06);
-}
-
-.showroom-info{
-  padding:1.3rem 1.4rem 1.5rem;
-  position:relative;
-}
-
-.showroom-info span{
-  color:#d7192028;
-  font-size:2.4rem;
-  font-weight:800;
-  line-height:1;
-}
-
-.showroom-info h3{
-  color:var(--dk);
-  font-size:1.25rem;
-  margin-top:.35rem;
-}
-
-.showroom-info p{
-  color:#766a65;
-  font-size:.9rem;
-  margin-top:.15rem;
-}
-
-@media(max-width:900px){
-  .showroom-head{
-    grid-template-columns:1fr;
-    gap:1rem;
-  }
-
-  .showroom-grid{
-    grid-template-columns:1fr 1fr;
-  }
-}
-
-@media(max-width:560px){
-  .showroom-grid{
-    grid-template-columns:1fr;
-  }
-
-  .showroom-card{
-    border-radius:20px;
-  }
-}
+.showrooms{background:var(--off);overflow:hidden}
+.showroom-head{display:grid;grid-template-columns:1.1fr .9fr;align-items:end;gap:3rem;margin-bottom:3rem}
+.showroom-label{color:var(--r);font-size:.75rem;font-weight:800;letter-spacing:.16em;margin-bottom:.8rem}
+.showroom-head h2,.showroom-head .lead{margin:0}
+.showroom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.showroom-card{background:#fff;border:1px solid #eadfd5;border-radius:24px;overflow:hidden;box-shadow:0 12px 30px #0000000c;transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.showroom-card:hover{transform:translateY(-10px);box-shadow:0 25px 50px #b5121b22}
+.showroom-img{position:relative;aspect-ratio:4/3;overflow:hidden;background:#eee5dc}
+.showroom-img::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,#ffffff00,#d7192018);pointer-events:none}
+.showroom-img img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .7s var(--ease)}
+.showroom-card:hover .showroom-img img{transform:scale(1.06)}
+.showroom-info{padding:1.3rem 1.4rem 1.5rem;position:relative}
+.showroom-info span{color:#d7192028;font-size:2.4rem;font-weight:800;line-height:1}
+.showroom-info h3{color:var(--dk);font-size:1.25rem;margin-top:.35rem}
+.showroom-info p{color:#766a65;font-size:.9rem;margin-top:.15rem}
+@media(max-width:900px){.showroom-head{grid-template-columns:1fr;gap:1rem}.showroom-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.showroom-grid{grid-template-columns:1fr}.showroom-card{border-radius:20px}}
