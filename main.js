@@ -1,5 +1,5 @@
 // ===== CONFIG: replace placeholders here =====
-const CONFIG={phone:'+910000000000',whatsapp:'910000000000',email:'hello@example.com',
+const CONFIG={phone:'+918676691024',whatsapp:'918678870912',email:'ssenterprises.odisha@gmail.com',
  formEndpoint:'', // paste your Google Apps Script Web App URL (ends in /exec). Empty = WhatsApp fallback
  locations:{ // x,y = marker position on the illustrative map; map = Google Maps link
   Bhubaneswar:{x:290,y:160,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Bhubaneswar'},
