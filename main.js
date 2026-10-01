@@ -1,11 +1,11 @@
 // ===== CONFIG: replace placeholders here =====
 const CONFIG={phone:'+910000000000',whatsapp:'910000000000',email:'hello@example.com',
- formEndpoint:'', // e.g. https://formspree.io/f/xxxx ; empty = falls back to WhatsApp message
+ formEndpoint:'', // paste your Google Apps Script Web App URL (ends in /exec). Empty = WhatsApp fallback
  locations:{ // x,y = marker position on the illustrative map; map = Google Maps link
-  Bhubaneswar:{x:285,y:165,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Bhubaneswar'},
-  Berhampur:{x:255,y:245,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Berhampur'},
-  Paralakhemundi:{x:225,y:285,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Paralakhemundi'},
-  Balangir:{x:120,y:135,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Balangir'}},
+  Bhubaneswar:{x:290,y:160,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Bhubaneswar'},
+  Berhampur:{x:225,y:226,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Berhampur'},
+  Paralakhemundi:{x:186,y:261,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Paralakhemundi'},
+  Balangir:{x:143,y:133,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Balangir'}},
  sales:{Home:'',Office:'',Shop:'',Showroom:'',Commercial:''}}; // add your own informational copy per space
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 $$('[data-call]').forEach(a=>a.href='tel:'+CONFIG.phone);
@@ -31,10 +31,15 @@ function showLoc(n){$$('.pin').forEach(p=>p.classList.toggle('on',p.dataset.n===
 Object.entries(CONFIG.locations).forEach(([n,l])=>{const g=document.createElementNS(NS,'g');g.setAttribute('class','pin');g.dataset.n=n;g.setAttribute('tabindex',0);g.setAttribute('role','button');g.setAttribute('aria-label',n);
  g.innerHTML=`<circle class="p" cx="${l.x}" cy="${l.y}" r="6"/><circle class="c" cx="${l.x}" cy="${l.y}" r="7"/><text x="${l.x+12}" y="${l.y+4}">${n}</text>`;
  g.onclick=()=>showLoc(n);g.onkeydown=e=>(e.key==='Enter'||e.key===' ')&&showLoc(n);pins.append(g)});showLoc('Bhubaneswar');
-$('#form').addEventListener('submit',async e=>{e.preventDefault();const f=e.target,m=$('#fmsg');let ok=true;
+$('#form').addEventListener('submit',async e=>{e.preventDefault();const f=e.target,m=$('#fmsg'),btn=$('button[type=submit]',f);let ok=true;
  $$('[required]',f).forEach(i=>{const bad=!i.value.trim()||(i.name==='phone'&&!/^[+\d][\d\s-]{7,14}$/.test(i.value.trim()));i.classList.toggle('bad',bad);if(bad)ok=false});
  if(!ok){m.textContent='Please complete the highlighted fields.';return}
  const d=Object.fromEntries(new FormData(f));
- try{if(CONFIG.formEndpoint){await fetch(CONFIG.formEndpoint,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(d)});m.textContent='Thank you! We will contact you shortly.';f.reset()}
- else{const t=encodeURIComponent(`New enquiry\nName: ${d.name}\nPhone: ${d.phone}\nLocation: ${d.location}\nService: ${d.service}\nMessage: ${d.message}`);m.textContent='Opening WhatsApp to send your enquiry…';open('https://wa.me/'+CONFIG.whatsapp+'?text='+t,'_blank')}}
- catch{m.textContent='Could not send. Please call us instead.'}});
+ const wa=()=>{const t=encodeURIComponent(`New enquiry\nName: ${d.name}\nPhone: ${d.phone}\nLocation: ${d.location}\nService: ${d.service}\nMessage: ${d.message}`);m.textContent='Opening WhatsApp to send your enquiry…';open('https://wa.me/'+CONFIG.whatsapp+'?text='+t,'_blank')};
+ if(!CONFIG.formEndpoint){wa();return}
+ btn.disabled=true;m.textContent='Sending…';
+ try{ // Apps Script: simple POST (no preflight). no-cors means the reply can't be read, so success = request was sent.
+  await fetch(CONFIG.formEndpoint,{method:'POST',mode:'no-cors',body:new URLSearchParams(d)});
+  m.textContent='Thank you! Our team will contact you shortly.';f.reset()}
+ catch{m.textContent='Could not send. Please call us or use WhatsApp.';wa()}
+ finally{btn.disabled=false}});
