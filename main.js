@@ -1,17 +1,17 @@
 // ===== CONFIG: replace placeholders here =====
-const CONFIG={phone:'+918676691024',whatsapp:'918678870912',email:'ssenterprises.odisha@gmail.com',
+const CONFIG={phone:'+919827870310',whatsapp:'919124633810',email:'ssenterprises.odisha@gmail.com',
  formEndpoint:'', // paste your Google Apps Script Web App URL (ends in /exec). Empty = WhatsApp fallback
  locations:{ // x,y = marker position on the illustrative map; map = Google Maps link
-  Bhubaneswar:{x:287,y:160,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Bhubaneswar'},
-  Berhampur:{x:222,y:226,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Berhampur'},
-  Paralakhemundi:{x:184,y:261,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Paralakhemundi'},
-  Balangir:{x:140,y:133,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Balangir'}},
+  Bhubaneswar:{x:287,y:160,address:'Infront of Bandhan Bank, opposite Delta Square, Bhubaneswar - 751003',map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprise+Bandhan+Bank+Delta+Square+Bhubaneswar+751003'},
+  Berhampur:{x:222,y:226,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprise+Berhampur'},
+  Paralakhemundi:{x:184,y:261,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprise+Paralakhemundi'},
+  Balangir:{x:140,y:133,map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprise+Balangir'}},
  sales:{Home:'',Office:'',Shop:'',Showroom:'',Commercial:''}}; // add your own informational copy per space
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 $$('[data-call]').forEach(a=>a.href='tel:'+CONFIG.phone);
-$$('[data-wa]').forEach(a=>a.href='https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent('Hello SS Enterprises, I need help with my AC.'));
+$$('[data-wa]').forEach(a=>a.href='https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent('Hello SS Enterprise, I need help with my AC.'));
 $$('[data-mail]').forEach(a=>a.href='mailto:'+CONFIG.email);
-$$('[data-map]').forEach(a=>a.href='https://www.google.com/maps/search/?api=1&query=SS+Enterprises+Odisha');
+$$('[data-map]').forEach(a=>a.href=CONFIG.locations.Bhubaneswar.map);
 const nav=$('#nav'),burger=$('#burger'),menu=$('#menu');
 addEventListener('scroll',()=>nav.classList.toggle('sc',scrollY>40),{passive:true});
 burger.onclick=()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
@@ -27,7 +27,7 @@ function showTab(k){$$('button',tabs).forEach(b=>b.setAttribute('aria-selected',
 Object.keys(CONFIG.sales).forEach(k=>{const b=document.createElement('button');b.textContent=k.toUpperCase();b.dataset.k=k;b.setAttribute('role','tab');b.onclick=()=>showTab(k);tabs.append(b)});showTab('Home');
 const pins=$('#pins'),card=$('#locCard'),NS='http://www.w3.org/2000/svg';
 function showLoc(n){$$('.pin').forEach(p=>p.classList.toggle('on',p.dataset.n===n));
- card.innerHTML=`<h3>${n}</h3><p>Complete AC sales and service solutions for customers in ${n}.</p><a class="btn red sm" target="_blank" rel="noopener" href="${CONFIG.locations[n].map}">Get Directions <span>→</span></a>`}
+ const L=CONFIG.locations[n];card.innerHTML=`<h3>${n}</h3><p>Complete AC sales and service solutions for customers in ${n}.</p>${L.address?`<p class="addr"><b>Address:</b> ${L.address}</p>`:''}<a class="btn red sm" target="_blank" rel="noopener" href="${CONFIG.locations[n].map}">Get Directions <span>→</span></a>`}
 Object.entries(CONFIG.locations).forEach(([n,l])=>{const g=document.createElementNS(NS,'g');g.setAttribute('class','pin');g.dataset.n=n;g.setAttribute('tabindex',0);g.setAttribute('role','button');g.setAttribute('aria-label',n);
  g.innerHTML=`<circle class="p" cx="${l.x}" cy="${l.y}" r="6"/><circle class="c" cx="${l.x}" cy="${l.y}" r="7"/><text x="${l.x+12}" y="${l.y+4}">${n}</text>`;
  g.onclick=()=>showLoc(n);g.onkeydown=e=>(e.key==='Enter'||e.key===' ')&&showLoc(n);pins.append(g)});showLoc('Bhubaneswar');
