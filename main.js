@@ -1,5 +1,5 @@
 // ===== CONFIG: replace placeholders here =====
-const CONFIG={phone:'+919827870310',whatsapp:'919124633810',email:'ssenterprises.odisha@gmail.com',
+const CONFIG={phone:'+919827870310',whatsapp:'919124633810',email:'ssenterprisebbsr12@gmail.com',
  formEndpoint:'', // paste your Google Apps Script Web App URL (ends in /exec). Empty = WhatsApp fallback
  locations:{ // x,y = marker position on the illustrative map; map = Google Maps link
   Bhubaneswar:{x:287,y:160,address:'Infront of Bandhan Bank, opposite Delta Square, Bhubaneswar - 751003',map:'https://www.google.com/maps/search/?api=1&query=SS+Enterprise+Bandhan+Bank+Delta+Square+Bhubaneswar+751003'},
