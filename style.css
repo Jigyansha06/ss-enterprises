@@ -174,3 +174,8 @@ html.ld-lock{overflow:hidden}
 .showroom-info p{color:#766a65;font-size:.9rem;margin-top:.15rem}
 @media(max-width:900px){.showroom-head{grid-template-columns:1fr;gap:1rem}.showroom-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.showroom-grid{grid-template-columns:1fr}.showroom-card{border-radius:20px}}
+
+/* AC types on service cards */
+.types{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem}
+.types li{font-size:.72rem;font-weight:700;letter-spacing:.02em;color:var(--r);background:#fff;border:1px solid #eadfd5;padding:.25rem .7rem;border-radius:99px;transition:border-color .3s,background .3s}
+.svc:hover .types li{border-color:#f4b6b8;background:#fff5f5}
