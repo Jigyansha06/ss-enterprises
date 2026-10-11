@@ -43,3 +43,19 @@ $('#form').addEventListener('submit',async e=>{e.preventDefault();const f=e.targ
   m.textContent='Thank you! Our team will contact you shortly.';f.reset()}
  catch{m.textContent='Could not send. Please call us or use WhatsApp.';wa()}
  finally{btn.disabled=false}});
+
+// Our Clients slider: native scroll-snap + arrow buttons, counter/progress bar, gentle autoplay
+(()=>{const t=$('#clTrack');if(!t)return;const cards=[...t.children],n=cards.length,num=$('#clNum'),bar=$('#clBar');
+ const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+ const step=()=>cards.length>1?cards[1].offsetLeft-cards[0].offsetLeft:t.clientWidth;
+ const atEnd=()=>t.scrollLeft>=t.scrollWidth-t.clientWidth-4;
+ function ui(){const r=(t.scrollLeft+t.clientWidth)/t.scrollWidth,c=atEnd()?n:Math.max(1,Math.round(r*n));num.textContent=String(c).padStart(2,'0');bar.style.width=(c/n*100)+'%'}
+ function go(d){if(d>0&&atEnd()){t.scrollTo({left:0});return}t.scrollTo({left:Math.max(0,Math.round(t.scrollLeft/step())*step()+d*step())})}
+ $('#clPrev').onclick=()=>{go(-1);hold()};$('#clNext').onclick=()=>{go(1);hold()};
+ t.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();go(1);hold()}if(e.key==='ArrowLeft'){e.preventDefault();go(-1);hold()}});
+ let tick=false;t.addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(()=>{tick=false;ui()})}},{passive:true});addEventListener('resize',ui);ui();
+ // autoplay: only while visible, paused on hover/focus/touch, never for reduced-motion users
+ let paused=false,vis=false,timer;const hold=()=>{paused=true;clearTimeout(timer);timer=setTimeout(()=>paused=false,9000)};
+ ['mouseenter','focusin','touchstart','pointerdown'].forEach(ev=>t.parentElement.addEventListener(ev,hold,{passive:true}));
+ new IntersectionObserver(e=>vis=e[0].isIntersecting,{threshold:.3}).observe(t);
+ if(!reduce)setInterval(()=>{if(vis&&!paused&&!document.hidden)go(1)},4500)})();
